@@ -1,0 +1,18 @@
+We thank all the reviewers for the comments. Datacenter networks are constantly evolving, which includes transmission speed and scale. Delay evolves naturally as networks become faster, and tuning it at scale is simpler than other schemes which strongly rely on switches. Either these non-delay-based schemes have parameter tunning problems at Switch or need specific functions which are not supported in the commercial switch. So, using delay as the congestion signal will be the trend in datacenter network. The target setting is the key point for most of these schemes because a slight variance will break the balance between delay and throughput. In order to maintain high throughput and low latency, we proposed a method that can get the accurate target. As far as we know, only Swift and RET try to solve the target-setting problem by updating the target dynamically. Unlike Swift, which uses a heuristic approach to update the target, we can find the more appropriate target according to the queue status. 
+
+We mainly show the performance comparison between Swift and RET, because Swift is the state-of-art delay-based design and it outperforms other delay-based designs obviously. Given Swift also adjusts target dynamically, we want to demonstrate that our target generation module is better. However, it is our negligence that we didn't mention this in our paper nor put enough experimental results in our paper due to the lack of space and time. You can visit https://anonymous.4open.science/r/RET-3259 for more results. 
+
+To Reviewer1:
+    Thanks for finding our topic interesting. About the question 'architecture-aware', RET is suitable for any datacenter, no matter the scale and the topologies. And, thanks for reminding us of the grammar mistake.
+
+To Reviewer2:
+    Thank you for your feedback and suggestions. In Figure 10(1), the performance gains are modest, but RET speeds up 1.2x/2.4x in latency compared to RSwift/DCQCN in work load type 2. 1.2 seems not good enough, but Swift and RET are far better than DCQCN. The website shows more results. You mentioned that the novelty is not enough, but RET is the first scheme to try to find the optimal target. More importantly, instead of using ECN as the congestion signal as previous schemes did, we use it to indicate the queue is empty or not. Therefore, compared with ECN-based schemes, there are no parameters that need to be tuned at switch, and compared with Swift, the extra information makes the target in RET more accurate. As for the question about whether we should worry about target setting. Figures 1 and 2 show that a target difference of several µs can result in a port utilization loss of more than 20%. We should improve our writing skills and provide more experimental results. At last, we hope our answer can slightly change your opinion.
+
+To Reviewer3:
+    Thank you for your comment. The problem of parameter setting in DCQCN has been explained in many previous works, and you can find the reference literature in Section Ⅰ. We also provide the parameter lists of RET, Swift, and DCQCN on the website.
+
+
+    
+
+    
+    

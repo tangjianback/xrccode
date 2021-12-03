@@ -1,0 +1,66 @@
+%matplotlib inline
+import matplotlib.pyplot as plt
+plt.style.use('seaborn-whitegrid')
+import numpy as np
+fig = plt.figure()
+ax = plt.axes()
+fig = plt.figure()
+ax = plt.axes()
+
+x = np.linspace(0, 10, 1000)
+ax.plot(x, np.sin(x));
+plt.plot(x, np.sin(x))
+plt.plot(x, np.cos(x));
+
+def result(filename,x,y):
+    start = 2.1
+    end = 2.5
+
+    with open(filename,'r') as f:
+        for each_line in f:
+            #print(each_line)
+            if 'Q' in each_line and len(each_line.split(' '))==3:
+              
+                time_a = float(each_line.split(' ')[0].strip())
+                queue = float(each_line.split(' ')[2].strip())
+                if time_a > start and time_a <end:
+                    x.append(time_a)
+                    y.append(queue)
+    total_queue = 0
+    empty =0
+    for i in y:
+        total_queue += i
+        if i <2:
+            empty +=1
+    print("average   :   "+str(total_queue/len(y)))
+    print("portutilization   :    "+str(1- empty/len(y)))
+
+timely_x = []
+timely_y = []
+result('Untitled Folder/timely_40_plus',timely_x,timely_y)
+dcqcn_x = []
+dcqcn_y = []
+result('Untitled Folder/dcqcn_100_plus',dcqcn_x,dcqcn_y)
+
+
+
+fig, axs = plt.subplots(2)
+fig.suptitle('Queue Size Comparison')
+axs[0].plot(timely_x, timely_y,label = 'TIMELY')
+axs[0].axis(ymin=0,ymax =300)
+axs[0].set_xticks([])
+axs[0].legend(loc = 1)
+axs[1].plot(dcqcn_x, dcqcn_y,label = 'DCQCN')
+axs[1].axis(ymin=0,ymax =800)
+axs[1].set_xticks([])
+axs[1].legend(loc = 1)
+# axs[0].plot(ret_x, ret_y,label = 'RET')
+# axs[0].axis(ymin=0,ymax =100)
+# axs[0].set_xticks([])
+# axs[2].plot(swift_x, swift_y,label = 'RSwift')
+# axs[2].axis(ymin=0,ymax =100)
+# axs[2].legend()
+# axs[3].plot(swift_x, swift_y,label = 'RSwift')
+# axs[3].axis(ymin=0,ymax =100)
+# axs[3].legend()
+plt.savefig('result',dpi = 500)
